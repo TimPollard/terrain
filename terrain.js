@@ -704,6 +704,12 @@ function visualizeVoronoi(svg, field, lo, hi) {
 
     svg.selectAll('path.field')
         .attr('d', makeD3Path)
+		.attr('data-point-id', function (d, i) {
+			// This add's the index/id of the point to the data-attributes of
+			// the triangle, making it easier to check which point a user has
+			// clicked on.
+			return i;
+		})
         .style('fill', function (d, i) {
             return d3.interpolateViridis(mappedvals[i]);
         });
