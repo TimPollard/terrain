@@ -857,16 +857,11 @@ function terrCenter(h, terr, city, landOnly) {
     return [x/n, y/n];
 }
 
-function drawLabels(svg, render) {
-    var params = render.params;
-    var h = render.h;
-    var terr = render.terr;
-    var cities = render.cities;
-    var nterrs = render.params.nterrs;
-    var avoids = [render.rivers, render.coasts, render.borders];
-    var lang = makeRandomLanguage();
+
+// Draws just the City labels
+function drawCityLabels(svg, params, h, cities, nterrs, avoids, lang) {
     var citylabels = [];
-    function penalty(label) {
+	function penalty(label) {
         var pen = 0;
         if (label.x0 < -0.45 * h.mesh.extent.width) pen += 100;
         if (label.x1 > 0.45 * h.mesh.extent.width) pen += 100;
@@ -963,6 +958,22 @@ function drawLabels(svg, render) {
         .style('text-anchor', function (d) {return d.align})
         .text(function (d) {return d.text})
         .raise();
+
+	return [citylabels, texts];
+}
+
+function drawLabels(svg, render) {
+    var params = render.params;
+    var h = render.h;
+    var terr = render.terr;
+    var cities = render.cities;
+    var nterrs = render.params.nterrs;
+    var avoids = [render.rivers, render.coasts, render.borders];
+    var lang = makeRandomLanguage();
+
+	var return_array = drawCityLabels(svg, params, h, cities, nterrs, avoids, lang);
+	var citylabels = return_array[0];
+	var texts = return_array[0];
 
     var reglabels = [];
     for (var i = 0; i < nterrs; i++) {
