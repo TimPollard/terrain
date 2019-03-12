@@ -859,7 +859,7 @@ function terrCenter(h, terr, city, landOnly) {
 
 
 // Draws just the City labels
-function drawCityLabels(svg, params, h, cities, nterrs, avoids, lang) {
+function drawCityLabels(svg, h, cities, cnames, avoids) {
     var citylabels = [];
 	function penalty(label) {
         var pen = 0;
@@ -898,8 +898,8 @@ function drawCityLabels(svg, params, h, cities, nterrs, avoids, lang) {
     for (var i = 0; i < cities.length; i++) {
         var x = h.mesh.vxs[cities[i]][0];
         var y = h.mesh.vxs[cities[i]][1];
-        var text = makeName(lang, 'city');
-        var size = i < nterrs ? params.fontsizes.city : params.fontsizes.town;
+        var text = cnames[i][0];
+        var size = cnames[i][1];
         var sx = 0.65 * size/1000 * text.length;
         var sy = size/1000;
         var posslabels = [
@@ -971,7 +971,18 @@ function drawLabels(svg, render) {
     var avoids = [render.rivers, render.coasts, render.borders];
     var lang = makeRandomLanguage();
 
-	var return_array = drawCityLabels(svg, params, h, cities, nterrs, avoids, lang);
+	// Generate the city names to start off
+	// Each name is an array with the name, and how big it should be displayed
+	var cnames = [];
+	for (var i =0; i < cities.length; i++) {
+		cnames[i] = [];
+        cnames[i][0] = makeName(lang, 'city');
+        cnames[i][1] = i < nterrs ? params.fontsizes.city : params.fontsizes.town;
+	}
+
+	console.log(cnames);
+
+	var return_array = drawCityLabels(svg, h, cities, cnames, avoids);
 	var citylabels = return_array[0];
 	var texts = return_array[0];
 
