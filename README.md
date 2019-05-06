@@ -1,3 +1,7 @@
+Note: this is a fork of [Martin O'Leary's original version][terrain], with a few
+slight tweaks for one of my (Tim Pollard's) clients. Here's Martin O'Leary's
+original Readme:
+
 # Fantasy map generator
 
 This is code for generating fantasy maps, using the algorithm behind [@unchartedatlas][uncharted]. For more details, see [these notes][notes].
@@ -21,6 +25,7 @@ it. Pull requests will be either ignored or closed.
 
 If you do make something interesting with this code, please do still let me know! I'm sorry that I can't provide any support, but I am still genuinely interested in seeing creative applications of the code.
 
+[terrain]: https://github.com/mewo2/terrain
 [uncharted]: https://twitter.com/unchartedatlas
 [notes]: https://mewo2.com/notes/terrain/
 [language]: https://github.com/mewo2/naming-language/
